@@ -205,8 +205,8 @@ const inventario = [
     }
 ];
 
-// Tu número de WhatsApp correcto configurado directamente
-const TU_WHATSAPP = "584243498330"; 
+// Tu número de WhatsApp real y verificado
+const TU_WHATSAPP = "584126039718"; 
 
 // Elementos de la interfaz web
 const marcaSelect = document.getElementById('marcaSelect');
