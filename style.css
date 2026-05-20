@@ -1,11 +1,3 @@
-:root {
-    --bg-dark: #0f172a;
-    --bg-card: #1e293b;
-    --accent: #38bdf8;
-    --text-main: #f8fafc;
-    --text-muted: #94a3b8;
-}
-
 * {
     margin: 0;
     padding: 0;
@@ -14,150 +6,169 @@
 }
 
 body {
-    background-color: var(--bg-dark);
-    color: var(--text-main);
-    line-height: 1.6;
+    background-color: #0f172a;
+    color: #f8fafc;
+    min-height: 100vh;
+    padding: 40px 20px;
 }
 
 header {
     text-align: center;
-    padding: 2rem 1rem;
-    background-color: #020617;
-    border-bottom: 2px solid #1e293b;
+    margin-bottom: 40px;
 }
 
-header .logo {
+header h1 {
     font-size: 2.5rem;
-    font-weight: bold;
-    color: var(--accent);
-    margin-bottom: 0.5rem;
+    color: #38bdf8;
+    margin-bottom: 10px;
 }
 
-header p {
-    color: var(--text-muted);
+.subtitulo {
+    color: #94a3b8;
+    font-size: 16px;
 }
 
-.container {
-    max-width: 900px;
-    margin: 2rem auto;
-    padding: 0 1rem;
+main {
+    max-width: 800px;
+    margin: 0 auto;
 }
 
-.search-box {
-    background-color: var(--bg-card);
-    padding: 2rem;
+.search-section {
+    background-color: #1e293b;
+    padding: 30px;
     border-radius: 12px;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-    margin-bottom: 2rem;
+    margin-bottom: 30px;
 }
 
-.search-box h2 {
-    margin-bottom: 1rem;
+.search-section h2 {
     font-size: 1.5rem;
+    margin-bottom: 20px;
 }
 
 .form-group {
     display: flex;
-    gap: 10px;
+    gap: 15px;
     flex-wrap: wrap;
 }
 
 select, input, button {
-    padding: 0.8rem;
+    padding: 12px;
     border-radius: 8px;
-    border: 1px solid #475569;
+    border: 1px solid #334155;
     font-size: 1rem;
-    outline: none;
 }
 
 select {
     background-color: #0f172a;
-    color: var(--text-main);
+    color: #f8fafc;
     flex: 1;
     min-width: 150px;
 }
 
 input {
     background-color: #0f172a;
-    color: var(--text-main);
-    flex: 3;
-    min-width: 250px;
-}
-
-input:focus, select:focus {
-    border-color: var(--accent);
+    color: #f8fafc;
+    flex: 2;
+    min-width: 200px;
 }
 
 button {
-    background-color: var(--accent);
+    background-color: #38bdf8;
     color: #0f172a;
     font-weight: bold;
     cursor: pointer;
     border: none;
-    transition: background 0.2s;
     flex: 1;
     min-width: 150px;
+    transition: background 0.2s;
 }
 
 button:hover {
-    background-color: #7dd3fc;
+    background-color: #0ea5e9;
 }
 
 .results-section h3 {
-    margin-bottom: 1rem;
-    color: var(--accent);
+    color: #38bdf8;
+    margin-bottom: 20px;
 }
 
-.grid-resultados {
-    display: grid;
-    gap: 1.5rem;
+.placeholder-text {
+    color: #64748b;
+    text-align: center;
+    font-style: italic;
+    margin-top: 20px;
 }
 
+/* Tarjetas de repuestos Premium */
 .card-repuesto {
-    background-color: var(--bg-card);
-    padding: 1.5rem;
-    border-radius: 10px;
-    border-left: 5px solid var(--accent);
+    background: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 16px;
+    padding: 24px;
+    margin-top: 20px;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+.card-repuesto:hover {
+    transform: translateY(-5px);
+    border-color: #38bdf8;
+    box-shadow: 0 20px 25px -5px rgba(56, 189, 248, 0.15);
 }
 
 .card-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 0.5rem;
+    margin-bottom: 15px;
 }
 
 .card-header h4 {
-    font-size: 1.25rem;
+    font-size: 1.3rem;
+    color: #f8fafc;
 }
 
 .precio {
     font-size: 1.4rem;
-    color: #4ade80;
+    color: #22c55e;
     font-weight: bold;
+}
+
+.tienda-info {
+    background: rgba(15, 23, 42, 0.6);
+    padding: 14px;
+    border-radius: 10px;
+    margin-top: 15px;
+    border-left: 4px solid #38bdf8;
 }
 
 .tienda-info p {
-    margin: 0.2rem 0;
-    font-size: 0.95rem;
+    margin: 8px 0;
+    font-size: 15px;
 }
 
 .btn-contacto {
-    display: inline-block;
-    margin-top: 1rem;
-    background-color: #25d366;
-    color: white;
-    padding: 0.5rem 1rem;
-    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+    color: #ffffff !important;
+    font-weight: 700;
+    font-size: 16px;
+    text-align: center;
     text-decoration: none;
-    font-weight: bold;
-    font-size: 0.9rem;
+    padding: 14px;
+    border-radius: 12px;
+    margin-top: 18px;
+    box-shadow: 0 4px 14px rgba(34, 197, 94, 0.4);
+    transition: all 0.2s ease;
 }
 
-.placeholder-text {
-    text-align: center;
-    color: var(--text-muted);
-    padding: 2rem;
+.btn-contacto:hover {
+    background: linear-gradient(135deg, #4ade80 0%, #16a34a 100%);
+    box-shadow: 0 6px 20px rgba(34, 197, 94, 0.6);
+    transform: scale(1.02);
 }
 
 footer {
@@ -171,6 +182,7 @@ footer {
 }
 
 footer span {
-    color: #38bdf8; /* El toque azul premium para tu firma */
+    color: #38bdf8;
     font-weight: 600;
 }
+
