@@ -1,4 +1,4 @@
-// Base de datos EXPANDIDA con repuestos reales y variados por modelo
+// Base de datos definitiva con repuestos reales y variados por modelo
 const inventario = [
     // ==================== MARCA: JAC ====================
     { id: 1, marca: "JAC", modelo: "Tepui / Sunray", pieza: "Pastillas de freno delanteras", precio: 25.00, zona: "Plaza Venezuela" },
@@ -75,7 +75,7 @@ const btnBuscar = document.getElementById('btnBuscar');
 const listaResultados = document.getElementById('listaResultados');
 
 function ejecutarBusqueda() {
-    const marcaSeleccionada = marcaSelect.value;
+    const marcaSeleccionada = marcaSelect.value.toLowerCase().trim();
     let textoBusqueda = buscarInput.value.toLowerCase().trim();
 
     if (!marcaSeleccionada) {
@@ -83,9 +83,15 @@ function ejecutarBusqueda() {
         return;
     }
 
-    // Buscador flexible por palabras
+    // Buscador súper flexible: Si la caja está vacía, muestra TODO lo de esa marca
     const resultados = inventario.filter(item => {
-        const coincideMarca = item.marca === marcaSeleccionada;
+        const marcaItem = item.marca.toLowerCase().trim();
+        const coincideMarca = (marcaSeleccionada === "gac" && marcaItem === "gac") || marcaItem.includes(marcaSeleccionada);
+        
+        if (!textoBusqueda) {
+            return coincideMarca;
+        }
+
         const coincidePieza = item.pieza.toLowerCase().includes(textoBusqueda);
         const coincideModelo = item.modelo.toLowerCase().includes(textoBusqueda);
         return coincideMarca && (coincidePieza || coincideModelo);
@@ -98,7 +104,7 @@ function renderizarResultados(lista) {
     listaResultados.innerHTML = ""; 
 
     if (lista.length === 0) {
-        listaResultados.innerHTML = `<p class="placeholder-text">No encontramos esa pieza exacta. Intenta con otra palabra (ej: pastillas, filtro, bomba, kit).</p>`;
+        listaResultados.innerHTML = `<p class="placeholder-text">No encontramos esa pieza exacta. Intenta dejando el buscador vacío para ver todo lo disponible.</p>`;
         return;
     }
 
