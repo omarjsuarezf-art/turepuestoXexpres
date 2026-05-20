@@ -74,27 +74,42 @@ const buscarInput = document.getElementById('buscarInput');
 const btnBuscar = document.getElementById('btnBuscar');
 const listaResultados = document.getElementById('listaResultados');
 
+// Función clave para quitar la "s" al final y que busque sin problemas de plural
+function normalizarPalabra(palabra) {
+    let p = palabra.toLowerCase().trim();
+    if (p.endsWith('s') && p.length > 3) {
+        p = p.slice(0, -1); 
+    }
+    return p;
+}
+
 function ejecutarBusqueda() {
     const marcaSeleccionada = marcaSelect.value.toLowerCase().trim();
-    let textoBusqueda = buscarInput.value.toLowerCase().trim();
+    let textoInput = buscarInput.value.toLowerCase().trim();
 
     if (!marcaSeleccionada) {
         listaResultados.innerHTML = `<p class="placeholder-text" style="color: #ef4444;">Por favor, selecciona una marca de carro.</p>`;
         return;
     }
 
-    // Buscador súper flexible: Si la caja está vacía, muestra TODO lo de esa marca
     const resultados = inventario.filter(item => {
         const marcaItem = item.marca.toLowerCase().trim();
         const coincideMarca = (marcaSeleccionada === "gac" && marcaItem === "gac") || marcaItem.includes(marcaSeleccionada);
         
-        if (!textoBusqueda) {
+        // Si no escribe nada en el buscador, muestra todo lo de esa marca
+        if (!textoInput) {
             return coincideMarca;
         }
 
-        const coincidePieza = item.pieza.toLowerCase().includes(textoBusqueda);
-        const coincideModelo = item.modelo.toLowerCase().includes(textoBusqueda);
-        return coincideMarca && (coincidePieza || coincideModelo);
+        // Divide el texto en palabras individuales
+        const palabrasBusqueda = textoInput.split(" ").map(p => normalizarPalabra(p)).filter(p => p.length > 1);
+
+        // Compara si alguna palabra clave coincide con la pieza o con el modelo
+        const coincideConPalabras = palabrasBusqueda.some(palabraClave => {
+            return item.pieza.toLowerCase().includes(palabraClave) || item.modelo.toLowerCase().includes(palabraClave);
+        });
+
+        return coincideMarca && coincideConPalabras;
     });
 
     renderizarResultados(resultados);
@@ -104,7 +119,7 @@ function renderizarResultados(lista) {
     listaResultados.innerHTML = ""; 
 
     if (lista.length === 0) {
-        listaResultados.innerHTML = `<p class="placeholder-text">No encontramos esa pieza exacta. Intenta dejando el buscador vacío para ver todo lo disponible.</p>`;
+        listaResultados.innerHTML = `<p class="placeholder-text">No encontramos esa pieza exacta. Intenta con otra palabra más corta (ej: pastillas, filtro, bomba, kit).</p>`;
         return;
     }
 
@@ -137,5 +152,4 @@ buscarInput.addEventListener('keypress', function(e) {
     if (e.key === 'Enter') {
         ejecutarBusqueda();
     }
-});
-
+}
