@@ -205,7 +205,7 @@ const inventario = [
     }
 ];
 
-// Tu número de WhatsApp configurado
+// Tu número de WhatsApp correcto configurado directamente
 const TU_WHATSAPP = "584243498330"; 
 
 // Elementos de la interfaz web
@@ -243,7 +243,7 @@ function ejecutarBusqueda() {
     renderizarResultados(resultados);
 }
 
-// Función para pintar las tarjetas protegiendo tus datos de comisión
+// Función para pintar las tarjetas con la versión amigable (Oculta zona y destaca el servicio)
 function renderizarResultados(lista) {
     listaResultados.innerHTML = ""; 
 
@@ -256,7 +256,8 @@ function renderizarResultados(lista) {
         const card = document.createElement('div');
         card.className = 'card-repuesto';
         
-        const mensajeWhatsapp = encodeURIComponent(`Hola RepuestosXExpress! Estoy interesado en el repuesto: ${item.pieza} para ${item.marca} ${item.modelo} ($${item.precio.toFixed(2)}) en la zona de ${item.zona}. ¿Cómo hacemos para la compra? (Ref: #${item.id})`);
+        // Mensaje automatizado impecable para cerrar la venta por WhatsApp
+        const mensajeWhatsapp = encodeURIComponent(`Hola RepuestosXExpress! Vi en la página que tienen disponible: ${item.pieza} para ${item.marca} ${item.modelo} ($${item.precio.toFixed(2)}). Deseo coordinar la compra, recibir la dirección exacta de retiro o consultar opciones de delivery. (Ref: #${item.id})`);
 
         card.innerHTML = `
             <div class="card-header">
@@ -266,10 +267,10 @@ function renderizarResultados(lista) {
             <div class="tienda-info">
                 <p><strong>Aplica para:</strong> ${item.marca} ${item.modelo}</p>
                 <p><strong>Disponibilidad:</strong> En Stock (Verificado)</p>
-                <p style="color: #38bdf8; font-weight: bold;"><strong>Zona de entrega:</strong> ${item.zona}, Caracas</p>
+                <p style="color: #38bdf8; font-weight: bold; margin-top: 8px;"><strong>Ubicación:</strong> 📦 Disponible para Delivery o Retiro Coordinado</p>
             </div>
-            <a href="https://wa.me/${TU_WHATSAPP}?text=${mensajeWhatsapp}" target="_blank" class="btn-contacto">
-                ⚡ Solicitar Ubicación Exacta / Comprar
+            <a href="https://wa.me/${TU_WHATSAPP}?text=${mensajeWhatsapp}" target="_blank" class="btn-contacto" style="background-color: #22c55e; color: #ffffff; font-weight: bold; display: block; text-align: center; text-decoration: none; padding: 10px; border-radius: 6px; margin-top: 15px;">
+                🟢 Solicitar Ubicación de Retiro / Comprar
             </a>
         `;
         listaResultados.appendChild(card);
