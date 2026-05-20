@@ -206,7 +206,7 @@ const inventario = [
 ];
 
 // Tu número de WhatsApp configurado
-const TU_WHATSAPP = "584126039718"; 
+const TU_WHATSAPP = "584243498330"; 
 
 // Elementos de la interfaz web
 const marcaSelect = document.getElementById('marcaSelect');
