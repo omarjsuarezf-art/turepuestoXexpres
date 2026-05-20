@@ -1,4 +1,6 @@
-// Base de datos de prueba local con repuestos reales y ubicaciones exactas
+
+    if (e.key === 'Enter') {
+        ejecutarBusqueda();// Base de datos de prueba local con repuestos reales, modernos y ubicaciones protegidas
 const inventario = [
     // ==================== MARCA: JAC ====================
     {
@@ -7,9 +9,7 @@ const inventario = [
         modelo: "Tepui / Sunray",
         pieza: "Pastillas de freno delanteras",
         precio: 25.00,
-        tienda: "China Car - Plaza Venezuela",
-        direccion: "Av. Intercomunal, Sede Central China Car, Caracas",
-        whatsapp: "584243498330"
+        zona: "Plaza Venezuela"
     },
     {
         id: 2,
@@ -17,19 +17,15 @@ const inventario = [
         modelo: "S3 / Gallop",
         pieza: "Filtro de aceite",
         precio: 8.50,
-        tienda: "China Car - San Martín",
-        direccion: "Av. San Martín, diagonal al Bloque de Armas, Caracas",
-        whatsapp: "584243498330"
+        zona: "San Martín"
     },
     {
         id: 3,
         marca: "JAC",
-        modelo: "T6 / T8",
+        modelo: "T6 / T8 / T9",
         pieza: "Filtro de aire acondicionado",
         precio: 15.00,
-        tienda: "Frenos y Filtros Quinta Crespo",
-        direccion: "Av. Baralt, cruce con Calle Este 12, Quinta Crespo, Caracas",
-        whatsapp: "584125556677"
+        zona: "Quinta Crespo"
     },
     {
         id: 4,
@@ -37,9 +33,7 @@ const inventario = [
         modelo: "S2 / S3",
         pieza: "Amortiguadores delanteros (Par)",
         precio: 85.00,
-        tienda: "Repuestos MultiChina Los Chaguaramos",
-        direccion: "Av. Neverí, frente al Centro Comercial Chaguaramos, Caracas",
-        whatsapp: "584249998877"
+        zona: "Los Chaguaramos"
     },
 
     // ==================== MARCA: CHANGAN ====================
@@ -49,9 +43,7 @@ const inventario = [
         modelo: "Alsvin",
         pieza: "Filtro de aceite",
         precio: 10.00,
-        tienda: "Concesionario Oficial Changan Caracas",
-        direccion: "Av. Francisco de Miranda, Los Palos Grandes, Chacao",
-        whatsapp: "584120000000"
+        zona: "Chacao"
     },
     {
         id: 6,
@@ -59,19 +51,15 @@ const inventario = [
         modelo: "Alsvin",
         pieza: "Pastillas de freno delanteras",
         precio: 35.00,
-        tienda: "Concesionario Oficial Changan Caracas",
-        direccion: "Av. Francisco de Miranda, Los Palos Grandes, Chacao",
-        whatsapp: "584120000000"
+        zona: "Chacao"
     },
     {
         id: 7,
         marca: "Changan",
-        modelo: "CS35 Plus",
+        modelo: "CS35 Plus / CS55",
         pieza: "Bujías de iridio (Set de 4)",
         precio: 40.00,
-        tienda: "Todo Changan El Cementerio",
-        direccion: "Av. Principal de El Cementerio, a media cuadra del mercado, Caracas",
-        whatsapp: "584163332211"
+        zona: "El Cementerio"
     },
     {
         id: 8,
@@ -79,9 +67,7 @@ const inventario = [
         modelo: "Hunter",
         pieza: "Correa de tiempo",
         precio: 45.00,
-        tienda: "Repuestos Express Oriente",
-        direccion: "Av. Libertador, Local 14, Chacao, Caracas",
-        whatsapp: "584241112233"
+        zona: "Chacao"
     },
 
     // ==================== MARCA: CHERY ====================
@@ -91,19 +77,15 @@ const inventario = [
         modelo: "Arauca / Orinoco",
         pieza: "Pastillas de freno delanteras",
         precio: 18.00,
-        tienda: "El Palacio del Chery - San Martín",
-        direccion: "Av. San Martín, cruce con Calle Angelitos, Caracas",
-        whatsapp: "584127778899"
+        zona: "San Martín"
     },
     {
         id: 10,
         marca: "Chery",
-        modelo: "Tiggo 2 / Tiggo 3",
+        modelo: "Tiggo 2 / Tiggo 4 / Tiggo 7",
         pieza: "Filtro de gasolina",
         precio: 7.00,
-        tienda: "Chery Total Quinta Crespo",
-        direccion: "Av. Baralt, Edif. Centro Baralt, Local B, Caracas",
-        whatsapp: "584244445566"
+        zona: "Quinta Crespo"
     },
     {
         id: 11,
@@ -111,9 +93,7 @@ const inventario = [
         modelo: "Orinoco",
         pieza: "Kit de tiempo (Correa y tensor)",
         precio: 55.00,
-        tienda: "Distribuidora Chery Caracas",
-        direccion: "Av. Principal de Bello Monte, Edif. Don Omar, Caracas",
-        whatsapp: "584142223344"
+        zona: "Bello Monte"
     },
     {
         id: 12,
@@ -121,9 +101,7 @@ const inventario = [
         modelo: "Grand Tiger",
         pieza: "Kit de Cloche / Embrague",
         precio: 130.00,
-        tienda: "EuroChina Repuestos Boleíta",
-        direccion: "Av. Principal de Boleíta Sur, Local 8, Caracas",
-        whatsapp: "584168889900"
+        zona: "Boleíta Sur"
     },
 
     // ==================== MARCA: SAIPA ====================
@@ -133,9 +111,7 @@ const inventario = [
         modelo: "Turpial",
         pieza: "Pastillas de freno delanteras",
         precio: 15.00,
-        tienda: "Repuestos Saipa El Triunfo",
-        direccion: "Av. Facilidad, Edif. Centro Automotriz, Los Chaguaramos, Caracas",
-        whatsapp: "584241115566"
+        zona: "Los Chaguaramos"
     },
     {
         id: 14,
@@ -143,9 +119,7 @@ const inventario = [
         modelo: "Saina / Turpial",
         pieza: "Filtro de aceite",
         precio: 6.00,
-        tienda: "Todo Saipa Boleíta",
-        direccion: "Calle San Ernesto, Edif. Industrial, Boleíta Norte, Caracas",
-        whatsapp: "584129990011"
+        zona: "Boleíta Norte"
     },
     {
         id: 15,
@@ -153,9 +127,7 @@ const inventario = [
         modelo: "Turpial",
         pieza: "Amortiguadores traseros (Par)",
         precio: 50.00,
-        tienda: "Repuestera La 10 San Martín",
-        direccion: "Av. San Martín, frente a la estación de servicio, Caracas",
-        whatsapp: "584147776655"
+        zona: "San Martín"
     },
     {
         id: 16,
@@ -163,11 +135,80 @@ const inventario = [
         modelo: "Saina",
         pieza: "Bomba de agua",
         precio: 35.00,
-        tienda: "Gran Imperio Iraní Quinta Crespo",
-        direccion: "Av. Baralt, detrás del Mercado de Quinta Crespo, Caracas",
-        whatsapp: "584248881122"
+        zona: "Quinta Crespo"
+    },
+
+    // ==================== MARCA: DONGFENG ====================
+    {
+        id: 17,
+        marca: "Dongfeng",
+        modelo: "Rich 6 / DF6",
+        pieza: "Pastillas de freno delanteras",
+        precio: 30.00,
+        zona: "Boleíta Norte"
+    },
+    {
+        id: 18,
+        marca: "Dongfeng",
+        modelo: "T5 EVO / SX5",
+        pieza: "Filtro de aceite",
+        precio: 12.00,
+        zona: "Los Chaguaramos"
+    },
+    {
+        id: 19,
+        marca: "Dongfeng",
+        modelo: "S30",
+        pieza: "Amortiguadores traseros (Par)",
+        precio: 75.00,
+        zona: "San Martín"
+    },
+    {
+        id: 20,
+        marca: "Dongfeng",
+        modelo: "Joyear X5 / T5",
+        pieza: "Bomba de agua",
+        precio: 48.00,
+        zona: "Quinta Crespo"
+    },
+
+    // ==================== MARCA: GAC MOTOR ====================
+    {
+        id: 21,
+        marca: "GAC",
+        modelo: "GS3 / GS4",
+        pieza: "Pastillas de freno delanteras",
+        precio: 40.00,
+        zona: "Las Mercedes"
+    },
+    {
+        id: 22,
+        marca: "GAC",
+        modelo: "GS3 / GS4 / GS8",
+        pieza: "Filtro de aceite",
+        precio: 15.00,
+        zona: "Chacao"
+    },
+    {
+        id: 23,
+        marca: "GAC",
+        modelo: "GS4 Pro",
+        pieza: "Filtro de aire de motor",
+        precio: 22.00,
+        zona: "Boleíta Sur"
+    },
+    {
+        id: 24,
+        marca: "GAC",
+        modelo: "GS3 Emzoom",
+        pieza: "Bujías de iridio (Set de 4)",
+        precio: 50.00,
+        zona: "Las Mercedes"
     }
 ];
+
+// Tu número de WhatsApp configurado
+const TU_WHATSAPP = "584126039718"; 
 
 // Elementos de la interfaz web
 const marcaSelect = document.getElementById('marcaSelect');
@@ -175,7 +216,7 @@ const buscarInput = document.getElementById('buscarInput');
 const btnBuscar = document.getElementById('btnBuscar');
 const listaResultados = document.getElementById('listaResultados');
 
-// Función principal del buscador inteligente (soporta plurales básicos)
+// Función principal del buscador inteligente
 function ejecutarBusqueda() {
     const marcaSeleccionada = marcaSelect.value;
     let textoBusqueda = buscarInput.value.toLowerCase().trim();
@@ -185,21 +226,17 @@ function ejecutarBusqueda() {
         return;
     }
 
-    // Truco: Si el usuario busca con "s" al final (ej. "frenos" o "pastillas"), busca también quitándole la S
     if (textoBusqueda.endsWith('s') && textoBusqueda.length > 4) {
         const sinS = textoBusqueda.slice(0, -1);
-        
         const resultados = inventario.filter(item => {
             const coincideMarca = item.marca === marcaSeleccionada;
             const nombrePieza = item.pieza.toLowerCase();
             return coincideMarca && (nombrePieza.includes(textoBusqueda) || nombrePieza.includes(sinS));
         });
-        
         renderizarResultados(resultados);
         return;
     }
 
-    // Busqueda normal si no termina en S o si es una palabra muy corta
     const resultados = inventario.filter(item => {
         const coincideMarca = item.marca === marcaSeleccionada;
         return coincideMarca && item.pieza.toLowerCase().includes(textoBusqueda);
@@ -208,7 +245,7 @@ function ejecutarBusqueda() {
     renderizarResultados(resultados);
 }
 
-// Función para pintar las tarjetas en el HTML
+// Función para pintar las tarjetas protegiendo tus datos de comisión
 function renderizarResultados(lista) {
     listaResultados.innerHTML = ""; 
 
@@ -221,7 +258,7 @@ function renderizarResultados(lista) {
         const card = document.createElement('div');
         card.className = 'card-repuesto';
         
-        const mensajeWhatsapp = encodeURIComponent(`Hola, vi en RepuestosXExpress que tienen disponible: ${item.pieza} para ${item.marca} ${item.modelo}. ¿Tienen stock disponible hoy?`);
+        const mensajeWhatsapp = encodeURIComponent(`Hola RepuestosXExpress! Estoy interesado en el repuesto: ${item.pieza} para ${item.marca} ${item.modelo} ($${item.precio.toFixed(2)}) en la zona de ${item.zona}. ¿Cómo hacemos para la compra? (Ref: #${item.id})`);
 
         card.innerHTML = `
             <div class="card-header">
@@ -230,11 +267,11 @@ function renderizarResultados(lista) {
             </div>
             <div class="tienda-info">
                 <p><strong>Aplica para:</strong> ${item.marca} ${item.modelo}</p>
-                <p><strong>Disponible en:</strong> ${item.tienda}</p>
-                <p style="color: #94a3b8; font-size: 0.85rem;"><strong>Ubicación:</strong> ${item.direccion}</p>
+                <p><strong>Disponibilidad:</strong> En Stock (Verificado)</p>
+                <p style="color: #38bdf8; font-weight: bold;"><strong>Zona de entrega:</strong> ${item.zona}, Caracas</p>
             </div>
-            <a href="https://wa.me/${item.whatsapp}?text=${mensajeWhatsapp}" target="_blank" class="btn-contacto">
-                📱 Contactar Tienda / Ir a Buscar
+            <a href="https://wa.me/${TU_WHATSAPP}?text=${mensajeWhatsapp}" target="_blank" class="btn-contacto">
+                ⚡ Solicitar Ubicación Exacta / Comprar
             </a>
         `;
         listaResultados.appendChild(card);
@@ -245,5 +282,7 @@ btnBuscar.addEventListener('click', ejecutarBusqueda);
 buscarInput.addEventListener('keypress', function(e) {
     if (e.key === 'Enter') {
         ejecutarBusqueda();
+    }
+});
     }
 });
