@@ -1,6 +1,4 @@
-
-    if (e.key === 'Enter') {
-        ejecutarBusqueda();// Base de datos de prueba local con repuestos reales, modernos y ubicaciones protegidas
+// Base de datos de prueba local con repuestos reales, modernos y ubicaciones protegidas
 const inventario = [
     // ==================== MARCA: JAC ====================
     {
@@ -282,7 +280,5 @@ btnBuscar.addEventListener('click', ejecutarBusqueda);
 buscarInput.addEventListener('keypress', function(e) {
     if (e.key === 'Enter') {
         ejecutarBusqueda();
-    }
-});
     }
 });
