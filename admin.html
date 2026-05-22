@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Administrativo - Xexpress</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>body { font-family: 'Inter', sans-serif; background-color: #0b0f19; }</style>
+</head>
+<body class="text-slate-100 p-6">
+
+    <div class="max-w-6xl mx-auto space-y-6">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+            <div>
+                <h1 class="text-2xl font-bold text-white flex items-center gap-2">
+                    <i class="fa-solid fa-circle-notch text-emerald-500 animate-spin"></i> Xexpress Consola Admin
+                </h1>
+                <p class="text-xs text-slate-400">Control de pedidos y despacho temporal (Purga automática 15 días)</p>
+            </div>
+            <button onclick="cargarPedidos()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold py-2 px-3 rounded-lg">
+                <i class="fa-solid fa-arrows-rotate mr-1"></i> Actualizar
+            </button>
+        </div>
+
+        <div class="overflow-x-auto bg-slate-900 border border-slate-800 rounded-xl">
+            <table class="w-full text-left border-collapse">
+                <thead class="bg-slate-950">
+                    <tr class="border-b border-slate-800 text-slate-400 text-xs uppercase">
+                        <th class="p-4">Cliente</th>
+                        <th class="p-4">Nro Parte</th>
+                        <th class="p-4">Foto</th>
+                        <th class="p-4">Estado</th>
+                        <th class="p-4">Precio ($)</th>
+                        <th class="p-4">Despacho</th>
+                        <th class="p-4">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="lista-pedidos" class="divide-y divide-slate-800/50"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        const SUPABASE_URL = "https://tnwvgavjqkygehhdluos.supabase.co"; 
+        const SUPABASE_KEY = "sb_publishable_yv0xoT3BWDa17baGtQu98AtQXQg"; 
+        const supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+        async function cargarPedidos() {
+            try {
+                await purgarFotosAntiguas();
+                const { data, error } = await supabase.from('pedidos').select('*').order('creado_en', { ascending: false });
+                if (error) throw error;
+                const tbody = document.getElementById('lista-pedidos');
+                tbody.innerHTML = '';
+                if (data.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="7" class="p-8 text-center text-slate-500">Sin solicitudes.</td></tr>';
+                    return;
+                }
+                data.forEach(p => {
+                    tbody.innerHTML += `
+                        <tr class="text-sm hover:bg-slate-800/20">
+                            <td class="p-4">
+                                <div class="font-bold text-white">${p.cliente_nombre}</div>
+                                <div class="text-xs text-emerald-400">${p.cliente_telefono}</div>
+                            </td>
+                            <td class="p-4 font-mono text-xs">${p.numero_parte || 'Por Foto'}</td>
+                            <td class="p-4">
+                                ${p.foto_url ? `<a href="${p.foto_url}" target="_blank" class="text-emerald-400 underline"><i class="fa-solid fa-image"></i> Ver Foto</a>` : 'Sin foto'}
+                            </td>
+                            <td class="p-4"><span class="px-2 py-0.5 rounded text-xs bg-slate-800 border border-slate-700">${p.estado}</span></td>
+                            <td class="p-4">
+                                <input id="precio-${p.id}" type="number" step="0.01" value="${p.precio_cotizado}" class="bg-slate-950 border border-slate-800 p-1 w-20 rounded text-right">
+                            </td>
+                            <td class="p-4 text-xs">
+                                <strong>${p.tipo_despacho || 'N/A'}</strong>
+                                ${p.codigo_retiro ? `<div class="text-emerald-400">Ticket: ${p.codigo_retiro}</div>` : ''}
+                            </td>
+                            <td class="p-4">
+                                <button onclick="guardarCotizacion('${p.id}')" class="bg-emerald-500 hover:bg-emerald-400 text-slate-950 px-2 py-1 rounded text-xs font-bold">Cotizar</button>
+                            </td>
+                        </tr>
+                    `;
+                });
+            } catch (err) { console.error(err); }
+        }
+
+        async function guardarCotizacion(id) {
+            const precio = parseFloat(document.getElementById(`precio-${id}`).value);
+            try {
+                const { error } = await supabase.from('pedidos').update({ precio_cotizado: precio, estado: 'Cotizado' }).eq('id', id);
+                if (error) throw error;
+                alert("Cotización guardada");
+                cargarPedidos();
+            } catch (err) { alert(err.message); }
+        }
+
+        async function purgarFotosAntiguas() {
+            const limite = new Date();
+            limite.setDate(limite.getDate() - 15);
+            try {
+                const { data } = await supabase.from('pedidos').select('id, storage_path').lte('creado_en', limite.toISOString());
+                if (data && data.length > 0) {
+                    const paths = data.map(p => p.storage_path).filter(Boolean);
+                    if (paths.length > 0) {
+                        await supabase.storage.from('fotos-repuestos').remove(paths);
+                        for (const p of data) {
+                            await supabase.from('pedidos').update({ foto_url: null, storage_path: null }).eq('id', p.id);
+                        }
+                    }
+                }
+            } catch (err) { console.warn(err); }
+        }
+
+        window.onload = cargarPedidos;
+    </script>
+</body>
+</html>
